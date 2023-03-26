@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.App {
+  width: 200px;
+  height: auto;
+}

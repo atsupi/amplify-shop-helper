@@ -2,13 +2,14 @@
   "name": "amplify-shop-helper",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@aws-amplify/ui-react": "^4.4.1",
+    "aws-amplify": "^5.0.22",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

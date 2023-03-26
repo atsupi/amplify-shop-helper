@@ -1,0 +1,13 @@
+{
+  "resourceName": "shophelper",
+  "policyUUID": "998d10ba",
+  "bucketName": "amplifyshophelper20230326",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
