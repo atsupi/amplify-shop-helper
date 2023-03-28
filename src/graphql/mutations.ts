@@ -16,6 +16,7 @@ export const createItem = /* GraphQL */ `
       isInCart
       createdAt
       updatedAt
+      purchaseItemIDId
     }
   }
 `;
@@ -33,6 +34,7 @@ export const updateItem = /* GraphQL */ `
       isInCart
       createdAt
       updatedAt
+      purchaseItemIDId
     }
   }
 `;
@@ -50,6 +52,7 @@ export const deleteItem = /* GraphQL */ `
       isInCart
       createdAt
       updatedAt
+      purchaseItemIDId
     }
   }
 `;
@@ -61,15 +64,20 @@ export const createPurchase = /* GraphQL */ `
     createPurchase(input: $input, condition: $condition) {
       id
       itemID {
-        id
-        imagefile
-        price
-        username
-        description
-        isInCart
-        createdAt
-        updatedAt
+        items {
+          id
+          imagefile
+          price
+          username
+          description
+          isInCart
+          createdAt
+          updatedAt
+          purchaseItemIDId
+        }
+        nextToken
       }
+      username
       numberOfItems
       isPurchased
       createdAt
@@ -85,15 +93,20 @@ export const updatePurchase = /* GraphQL */ `
     updatePurchase(input: $input, condition: $condition) {
       id
       itemID {
-        id
-        imagefile
-        price
-        username
-        description
-        isInCart
-        createdAt
-        updatedAt
+        items {
+          id
+          imagefile
+          price
+          username
+          description
+          isInCart
+          createdAt
+          updatedAt
+          purchaseItemIDId
+        }
+        nextToken
       }
+      username
       numberOfItems
       isPurchased
       createdAt
@@ -109,15 +122,20 @@ export const deletePurchase = /* GraphQL */ `
     deletePurchase(input: $input, condition: $condition) {
       id
       itemID {
-        id
-        imagefile
-        price
-        username
-        description
-        isInCart
-        createdAt
-        updatedAt
+        items {
+          id
+          imagefile
+          price
+          username
+          description
+          isInCart
+          createdAt
+          updatedAt
+          purchaseItemIDId
+        }
+        nextToken
       }
+      username
       numberOfItems
       isPurchased
       createdAt
