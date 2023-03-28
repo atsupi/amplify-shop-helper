@@ -11,10 +11,12 @@
 
 .Main {
   display: flex;
-  height: 400px;
+  width: 500px;
+  height: 600px;
   justify-content: center;
+  background-color: bisque;
 }
 
 .MainContent {
-  width: 300px;
+  width: 400px;
 }
