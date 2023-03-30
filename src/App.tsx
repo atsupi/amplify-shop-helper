@@ -25,7 +25,7 @@ function App() {
                     <Route index path="/" element={<Home />} />
                     <Route path="/shop" element={<Shop />} />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/register" element={<Register username={user?.username}/>} />
                   </Routes>
                 </div>
               </BrowserRouter>

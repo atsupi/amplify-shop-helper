@@ -11,8 +11,6 @@ export const getItem = /* GraphQL */ `
       username
       description
       isInCart
-      createdAt
-      updatedAt
       purchaseItemIDId
     }
   }
@@ -31,8 +29,6 @@ export const listItems = /* GraphQL */ `
         username
         description
         isInCart
-        createdAt
-        updatedAt
         purchaseItemIDId
       }
       nextToken
@@ -51,8 +47,6 @@ export const getPurchase = /* GraphQL */ `
           username
           description
           isInCart
-          createdAt
-          updatedAt
           purchaseItemIDId
         }
         nextToken
@@ -60,8 +54,6 @@ export const getPurchase = /* GraphQL */ `
       username
       numberOfItems
       isPurchased
-      createdAt
-      updatedAt
     }
   }
 `;
@@ -80,8 +72,6 @@ export const listPurchases = /* GraphQL */ `
         username
         numberOfItems
         isPurchased
-        createdAt
-        updatedAt
       }
       nextToken
     }

@@ -4,18 +4,21 @@ import { useState } from "react";
 import { Button } from "@aws-amplify/ui-react";
 import { Navigate } from "react-router-dom";
 
+import { API, graphqlOperation } from "aws-amplify";
+import { createItem } from "./graphql/mutations";
+
 async function getPresignedUrl(key: any) {
   const presignedUrl = await Storage.get(key, { level: "public" });
   console.log(presignedUrl);
   return presignedUrl;
 }
 
-function Register() {
+function Register(prop) {
   const [presignedUrl, setPresignedUrl] = useState("");
   const [dataName, setDataName] = useState("No image");
   const [isUrlSet, setIsUrlSet] = useState(false);
-  const [description, setDescription] = useState("No description");
-  const [price, setPrice] = useState("For free");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
 
   const inputFile = (event: any) => {
     console.log(event.target.files[0]);
@@ -40,12 +43,10 @@ function Register() {
               setIsUrlSet(true);
             })
             .catch((event) => {
-              console.log("caught event");
               console.log(event);
             });
         })
         .catch((event) => {
-          console.log("caught event");
           console.log(event);
         });
     }
@@ -59,9 +60,29 @@ function Register() {
     setPrice(event.target.value);
   };
 
-  const registerItem = () => {
+  const registerItem = async () => {
     console.log("Register item on DynamoDB");
     console.log(description + ` / ` + price + ` / ` + dataName);
+    console.log(" username=" + prop.username);
+    const date = new Date().toLocaleString();
+    console.log(" date=" + date);
+    const value = {
+      // `id` is not included as it is determined by AppSync
+      id: date,
+      imagefile: dataName,
+      price: parseInt(price),
+      username: prop.username,
+      description: description,
+      isInCart: 0,
+    };
+    try {
+      const res = await API.graphql(
+        graphqlOperation(createItem, { input: value })
+      );
+      console.log(res);
+    } catch (event) {
+      console.log(event);
+    }
   };
 
   const cancelRegistration = () => {
@@ -73,13 +94,23 @@ function Register() {
       <h2>Register Page</h2>
       <div className="Description">
         <label>Description:</label>
-        <input type="text" value={description} placeholder="No description" onChange={inputDescription} />
+        <input
+          type="text"
+          value={description}
+          placeholder="No description"
+          onChange={inputDescription}
+        />
       </div>
       <div className="Price">
         <label>Price:</label>
-        <input type="text" value={price} placeholder="For free" onChange={inputPrice} />
+        <input
+          type="text"
+          value={price}
+          placeholder="For free"
+          onChange={inputPrice}
+        />
       </div>
-      <br/>
+      <br />
       <div className="Uploader">
         <input type="file" onChange={inputFile} />
       </div>

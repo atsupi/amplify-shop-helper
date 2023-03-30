@@ -1,12 +1,17 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Item @model @auth(rules: [
+type Item @model (
+  mutations: {create: "createItem", delete: "deleteItem", update: null}
+  timestamps: null
+  subscriptions: { level: public }
+) 
+@auth(rules: [
     {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete]}
     {allow: private, provider: userPools, operations:[read, create, delete]}
  ]) {
-  id: ID!
+  id: ID
   imagefile: String
   price: Int!
   username: String!
@@ -14,11 +19,16 @@ type Item @model @auth(rules: [
   isInCart: Int!
 }
 
-type Purchase @model @auth(rules: [
+type Purchase @model (
+  mutations: {create: "createPurchase", delete: "deletePurchase", update: "updatePurchase"}
+  timestamps: null
+  subscriptions: { level: public }
+) 
+@auth(rules: [
     {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete]}
     {allow: private, provider: userPools, operations:[read, create, delete]}
  ]) {
-  id: ID!
+  id: ID
   itemID: [Item] @hasMany
   username: String!
   numberOfItems: Int!
