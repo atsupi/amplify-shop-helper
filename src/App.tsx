@@ -7,8 +7,12 @@ import Home from "./Home";
 import Shop from "./Shop";
 import Cart from "./Cart";
 import Register from "./Register";
+import { useEffect, useState } from "react";
+import { API, graphqlOperation } from "aws-amplify";
+import { listItems } from "./graphql/queries";
 
 function App() {
+
   return (
     <Authenticator>
       {({ signOut, user }) => (
@@ -16,6 +20,7 @@ function App() {
           <div className="App">
             <header className="App-header">
               <h2>{user?.username}</h2>
+              <Button onClick={signOut}>SignOut</Button>
             </header>
             <main className="Main">
               <BrowserRouter>
@@ -25,13 +30,15 @@ function App() {
                     <Route index path="/" element={<Home />} />
                     <Route path="/shop" element={<Shop />} />
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/register" element={<Register username={user?.username}/>} />
+                    <Route
+                      path="/register"
+                      element={<Register username={user?.username} />}
+                    />
                   </Routes>
                 </div>
               </BrowserRouter>
             </main>
             <footer className="App-footer">
-              <Button onClick={signOut}>SignOut</Button>
             </footer>
           </div>
         </>

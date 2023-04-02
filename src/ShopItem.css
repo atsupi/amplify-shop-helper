@@ -1,0 +1,17 @@
+.NoImage {
+    min-width: 120;
+    min-height: 120;
+    border-radius: 5pt;
+    border-style: dashed;
+    margin: 2pt;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: right;
+}
+
+.price {
+    height: auto;
+    justify-items: auto;
+}

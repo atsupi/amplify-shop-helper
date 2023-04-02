@@ -15,6 +15,19 @@ export const onCreateItem = /* GraphQL */ `
     }
   }
 `;
+export const onUpdateItem = /* GraphQL */ `
+  subscription OnUpdateItem($filter: ModelSubscriptionItemFilterInput) {
+    onUpdateItem(filter: $filter) {
+      id
+      imagefile
+      price
+      username
+      description
+      isInCart
+      purchaseItemIDId
+    }
+  }
+`;
 export const onDeleteItem = /* GraphQL */ `
   subscription OnDeleteItem($filter: ModelSubscriptionItemFilterInput) {
     onDeleteItem(filter: $filter) {

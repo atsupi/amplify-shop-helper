@@ -107,6 +107,16 @@ export type DeleteItemInput = {
   id: string,
 };
 
+export type UpdateItemInput = {
+  id: string,
+  imagefile?: string | null,
+  price?: number | null,
+  username?: string | null,
+  description?: string | null,
+  isInCart?: number | null,
+  purchaseItemIDId?: string | null,
+};
+
 export type CreatePurchaseInput = {
   id?: string | null,
   username: string,
@@ -263,6 +273,24 @@ export type DeleteItemMutationVariables = {
 
 export type DeleteItemMutation = {
   deleteItem?:  {
+    __typename: "Item",
+    id?: string | null,
+    imagefile?: string | null,
+    price: number,
+    username: string,
+    description: string,
+    isInCart: number,
+    purchaseItemIDId?: string | null,
+  } | null,
+};
+
+export type UpdateItemMutationVariables = {
+  input: UpdateItemInput,
+  condition?: ModelItemConditionInput | null,
+};
+
+export type UpdateItemMutation = {
+  updateItem?:  {
     __typename: "Item",
     id?: string | null,
     imagefile?: string | null,
@@ -459,6 +487,23 @@ export type OnCreateItemSubscriptionVariables = {
 
 export type OnCreateItemSubscription = {
   onCreateItem?:  {
+    __typename: "Item",
+    id?: string | null,
+    imagefile?: string | null,
+    price: number,
+    username: string,
+    description: string,
+    isInCart: number,
+    purchaseItemIDId?: string | null,
+  } | null,
+};
+
+export type OnUpdateItemSubscriptionVariables = {
+  filter?: ModelSubscriptionItemFilterInput | null,
+};
+
+export type OnUpdateItemSubscription = {
+  onUpdateItem?:  {
     __typename: "Item",
     id?: string | null,
     imagefile?: string | null,

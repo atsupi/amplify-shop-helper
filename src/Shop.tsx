@@ -1,5 +1,36 @@
+import { API, graphqlOperation } from "aws-amplify";
+import { useEffect, useState } from "react";
+import { listItems } from "./graphql/queries";
+import PaginateItems from "./PaginateItems";
+
 function Shop () {
-    return <h1>Shop Page</h1>
+  const [itemList, setItemList] = useState([]);
+
+  const getList = async (nextToken = null) => {
+    const res = await API.graphql(
+      graphqlOperation(listItems, {
+        nextToken: nextToken,
+      })
+    );
+    return res;
+  };
+
+  useEffect(() => {
+    getList().then((res) => {
+      setItemList(res.data.listItems.items);
+    });
+  }, []);
+
+  return (
+    <>
+      <div>
+        <h3>Shop Page</h3>
+      </div>
+      <div>
+        <PaginateItems itemsPerPage={4} items={itemList} />
+      </div>
+    </>
+  );
 }
 
 export default Shop;

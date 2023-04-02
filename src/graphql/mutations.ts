@@ -34,6 +34,22 @@ export const deleteItem = /* GraphQL */ `
     }
   }
 `;
+export const updateItem = /* GraphQL */ `
+  mutation UpdateItem(
+    $input: UpdateItemInput!
+    $condition: ModelItemConditionInput
+  ) {
+    updateItem(input: $input, condition: $condition) {
+      id
+      imagefile
+      price
+      username
+      description
+      isInCart
+      purchaseItemIDId
+    }
+  }
+`;
 export const createPurchase = /* GraphQL */ `
   mutation CreatePurchase(
     $input: CreatePurchaseInput!

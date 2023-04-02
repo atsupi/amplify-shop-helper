@@ -9,7 +9,6 @@ import { createItem } from "./graphql/mutations";
 
 async function getPresignedUrl(key: any) {
   const presignedUrl = await Storage.get(key, { level: "public" });
-  console.log(presignedUrl);
   return presignedUrl;
 }
 

@@ -3,13 +3,13 @@
 # input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
 type Item @model (
-  mutations: {create: "createItem", delete: "deleteItem", update: null}
+  mutations: {create: "createItem", delete: "deleteItem", update: "updateItem"}
   timestamps: null
   subscriptions: { level: public }
 ) 
 @auth(rules: [
-    {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete]}
-    {allow: private, provider: userPools, operations:[read, create, delete]}
+    {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete, update]}
+    {allow: private, provider: userPools, operations:[read, create, delete, update]}
  ]) {
   id: ID
   imagefile: String
@@ -25,8 +25,8 @@ type Purchase @model (
   subscriptions: { level: public }
 ) 
 @auth(rules: [
-    {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete]}
-    {allow: private, provider: userPools, operations:[read, create, delete]}
+    {allow: owner, ownerField:"username", provider: userPools, operations:[read, create, delete, update]}
+    {allow: private, provider: userPools, operations:[read, create, delete, update]}
  ]) {
   id: ID
   itemID: [Item] @hasMany
