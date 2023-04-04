@@ -14,7 +14,6 @@ export const createItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -30,7 +29,6 @@ export const deleteItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -46,7 +44,6 @@ export const updateItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -57,18 +54,7 @@ export const createPurchase = /* GraphQL */ `
   ) {
     createPurchase(input: $input, condition: $condition) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased
@@ -82,18 +68,7 @@ export const deletePurchase = /* GraphQL */ `
   ) {
     deletePurchase(input: $input, condition: $condition) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased
@@ -107,18 +82,7 @@ export const updatePurchase = /* GraphQL */ `
   ) {
     updatePurchase(input: $input, condition: $condition) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased

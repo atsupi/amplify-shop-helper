@@ -29,8 +29,8 @@ type Purchase @model (
     {allow: private, provider: userPools, operations:[read, create, delete, update]}
  ]) {
   id: ID
-  itemID: [Item] @hasMany
+  itemID: [String]!
   username: String!
   numberOfItems: Int!
-  isPurchased: [Int]
+  isPurchased: [Int]!
 }

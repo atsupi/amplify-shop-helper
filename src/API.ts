@@ -9,7 +9,6 @@ export type CreateItemInput = {
   username: string,
   description: string,
   isInCart: number,
-  purchaseItemIDId?: string | null,
 };
 
 export type ModelItemConditionInput = {
@@ -21,7 +20,6 @@ export type ModelItemConditionInput = {
   and?: Array< ModelItemConditionInput | null > | null,
   or?: Array< ModelItemConditionInput | null > | null,
   not?: ModelItemConditionInput | null,
-  purchaseItemIDId?: ModelIDInput | null,
 };
 
 export type ModelStringInput = {
@@ -76,6 +74,80 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type Item = {
+  __typename: "Item",
+  id?: string | null,
+  imagefile?: string | null,
+  price: number,
+  username: string,
+  description: string,
+  isInCart: number,
+};
+
+export type DeleteItemInput = {
+  id: string,
+};
+
+export type UpdateItemInput = {
+  id: string,
+  imagefile?: string | null,
+  price?: number | null,
+  username?: string | null,
+  description?: string | null,
+  isInCart?: number | null,
+};
+
+export type CreatePurchaseInput = {
+  id?: string | null,
+  itemID: Array< string | null >,
+  username: string,
+  numberOfItems: number,
+  isPurchased: Array< number | null >,
+};
+
+export type ModelPurchaseConditionInput = {
+  itemID?: ModelStringInput | null,
+  username?: ModelStringInput | null,
+  numberOfItems?: ModelIntInput | null,
+  isPurchased?: ModelIntInput | null,
+  and?: Array< ModelPurchaseConditionInput | null > | null,
+  or?: Array< ModelPurchaseConditionInput | null > | null,
+  not?: ModelPurchaseConditionInput | null,
+};
+
+export type Purchase = {
+  __typename: "Purchase",
+  id?: string | null,
+  itemID: Array< string | null >,
+  username: string,
+  numberOfItems: number,
+  isPurchased: Array< number | null >,
+};
+
+export type DeletePurchaseInput = {
+  id: string,
+};
+
+export type UpdatePurchaseInput = {
+  id: string,
+  itemID?: Array< string | null > | null,
+  username?: string | null,
+  numberOfItems?: number | null,
+  isPurchased?: Array< number | null > | null,
+};
+
+export type ModelItemFilterInput = {
+  id?: ModelIDInput | null,
+  imagefile?: ModelStringInput | null,
+  price?: ModelIntInput | null,
+  username?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  isInCart?: ModelIntInput | null,
+  and?: Array< ModelItemFilterInput | null > | null,
+  or?: Array< ModelItemFilterInput | null > | null,
+  not?: ModelItemFilterInput | null,
+};
+
 export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
@@ -92,88 +164,15 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type Item = {
-  __typename: "Item",
-  id?: string | null,
-  imagefile?: string | null,
-  price: number,
-  username: string,
-  description: string,
-  isInCart: number,
-  purchaseItemIDId?: string | null,
-};
-
-export type DeleteItemInput = {
-  id: string,
-};
-
-export type UpdateItemInput = {
-  id: string,
-  imagefile?: string | null,
-  price?: number | null,
-  username?: string | null,
-  description?: string | null,
-  isInCart?: number | null,
-  purchaseItemIDId?: string | null,
-};
-
-export type CreatePurchaseInput = {
-  id?: string | null,
-  username: string,
-  numberOfItems: number,
-  isPurchased?: Array< number | null > | null,
-};
-
-export type ModelPurchaseConditionInput = {
-  username?: ModelStringInput | null,
-  numberOfItems?: ModelIntInput | null,
-  isPurchased?: ModelIntInput | null,
-  and?: Array< ModelPurchaseConditionInput | null > | null,
-  or?: Array< ModelPurchaseConditionInput | null > | null,
-  not?: ModelPurchaseConditionInput | null,
-};
-
-export type Purchase = {
-  __typename: "Purchase",
-  id?: string | null,
-  itemID?: ModelItemConnection | null,
-  username: string,
-  numberOfItems: number,
-  isPurchased?: Array< number | null > | null,
-};
-
 export type ModelItemConnection = {
   __typename: "ModelItemConnection",
   items:  Array<Item | null >,
   nextToken?: string | null,
 };
 
-export type DeletePurchaseInput = {
-  id: string,
-};
-
-export type UpdatePurchaseInput = {
-  id: string,
-  username?: string | null,
-  numberOfItems?: number | null,
-  isPurchased?: Array< number | null > | null,
-};
-
-export type ModelItemFilterInput = {
-  id?: ModelIDInput | null,
-  imagefile?: ModelStringInput | null,
-  price?: ModelIntInput | null,
-  username?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  isInCart?: ModelIntInput | null,
-  and?: Array< ModelItemFilterInput | null > | null,
-  or?: Array< ModelItemFilterInput | null > | null,
-  not?: ModelItemFilterInput | null,
-  purchaseItemIDId?: ModelIDInput | null,
-};
-
 export type ModelPurchaseFilterInput = {
   id?: ModelIDInput | null,
+  itemID?: ModelStringInput | null,
   username?: ModelStringInput | null,
   numberOfItems?: ModelIntInput | null,
   isPurchased?: ModelIntInput | null,
@@ -242,6 +241,7 @@ export type ModelSubscriptionIntInput = {
 
 export type ModelSubscriptionPurchaseFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  itemID?: ModelSubscriptionStringInput | null,
   numberOfItems?: ModelSubscriptionIntInput | null,
   isPurchased?: ModelSubscriptionIntInput | null,
   and?: Array< ModelSubscriptionPurchaseFilterInput | null > | null,
@@ -262,7 +262,6 @@ export type CreateItemMutation = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -280,7 +279,6 @@ export type DeleteItemMutation = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -298,7 +296,6 @@ export type UpdateItemMutation = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -311,23 +308,10 @@ export type CreatePurchaseMutation = {
   createPurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -340,23 +324,10 @@ export type DeletePurchaseMutation = {
   deletePurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -369,23 +340,10 @@ export type UpdatePurchaseMutation = {
   updatePurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -402,7 +360,6 @@ export type GetItemQuery = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -423,7 +380,6 @@ export type ListItemsQuery = {
       username: string,
       description: string,
       isInCart: number,
-      purchaseItemIDId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -437,23 +393,10 @@ export type GetPurchaseQuery = {
   getPurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -469,13 +412,10 @@ export type ListPurchasesQuery = {
     items:  Array< {
       __typename: "Purchase",
       id?: string | null,
-      itemID?:  {
-        __typename: "ModelItemConnection",
-        nextToken?: string | null,
-      } | null,
+      itemID: Array< string | null >,
       username: string,
       numberOfItems: number,
-      isPurchased?: Array< number | null > | null,
+      isPurchased: Array< number | null >,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -494,7 +434,6 @@ export type OnCreateItemSubscription = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -511,7 +450,6 @@ export type OnUpdateItemSubscription = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -528,7 +466,6 @@ export type OnDeleteItemSubscription = {
     username: string,
     description: string,
     isInCart: number,
-    purchaseItemIDId?: string | null,
   } | null,
 };
 
@@ -540,23 +477,10 @@ export type OnCreatePurchaseSubscription = {
   onCreatePurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -568,23 +492,10 @@ export type OnUpdatePurchaseSubscription = {
   onUpdatePurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };
 
@@ -596,22 +507,9 @@ export type OnDeletePurchaseSubscription = {
   onDeletePurchase?:  {
     __typename: "Purchase",
     id?: string | null,
-    itemID?:  {
-      __typename: "ModelItemConnection",
-      items:  Array< {
-        __typename: "Item",
-        id?: string | null,
-        imagefile?: string | null,
-        price: number,
-        username: string,
-        description: string,
-        isInCart: number,
-        purchaseItemIDId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
+    itemID: Array< string | null >,
     username: string,
     numberOfItems: number,
-    isPurchased?: Array< number | null > | null,
+    isPurchased: Array< number | null >,
   } | null,
 };

@@ -1,5 +1,4 @@
 import ShopItem from "./ShopItem";
-import "./ShopItemList.css";
 
 function ShopItemList({currentItems}) {
   let index = 0;

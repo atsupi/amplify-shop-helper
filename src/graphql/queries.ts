@@ -11,7 +11,6 @@ export const getItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -29,7 +28,6 @@ export const listItems = /* GraphQL */ `
         username
         description
         isInCart
-        purchaseItemIDId
       }
       nextToken
     }
@@ -39,18 +37,7 @@ export const getPurchase = /* GraphQL */ `
   query GetPurchase($id: ID!) {
     getPurchase(id: $id) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased
@@ -66,9 +53,7 @@ export const listPurchases = /* GraphQL */ `
     listPurchases(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        itemID {
-          nextToken
-        }
+        itemID
         username
         numberOfItems
         isPurchased

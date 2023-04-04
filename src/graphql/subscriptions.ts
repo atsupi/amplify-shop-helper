@@ -11,7 +11,6 @@ export const onCreateItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -24,7 +23,6 @@ export const onUpdateItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -37,7 +35,6 @@ export const onDeleteItem = /* GraphQL */ `
       username
       description
       isInCart
-      purchaseItemIDId
     }
   }
 `;
@@ -45,18 +42,7 @@ export const onCreatePurchase = /* GraphQL */ `
   subscription OnCreatePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
     onCreatePurchase(filter: $filter) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased
@@ -67,18 +53,7 @@ export const onUpdatePurchase = /* GraphQL */ `
   subscription OnUpdatePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
     onUpdatePurchase(filter: $filter) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased
@@ -89,18 +64,7 @@ export const onDeletePurchase = /* GraphQL */ `
   subscription OnDeletePurchase($filter: ModelSubscriptionPurchaseFilterInput) {
     onDeletePurchase(filter: $filter) {
       id
-      itemID {
-        items {
-          id
-          imagefile
-          price
-          username
-          description
-          isInCart
-          purchaseItemIDId
-        }
-        nextToken
-      }
+      itemID
       username
       numberOfItems
       isPurchased

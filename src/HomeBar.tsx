@@ -1,5 +1,4 @@
 import "./HomeBar.css";
-import { Button } from "@aws-amplify/ui-react";
 import { NavLink } from "react-router-dom";
 
 function HomeBar() {
@@ -10,13 +9,16 @@ function HomeBar() {
           <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/">Home</NavLink>
         </li>
         <li>
+          <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/register">Register</NavLink>
+        </li>
+        <li>
           <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/shop">Shop</NavLink>
         </li>
         <li>
           <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/cart">Cart</NavLink>
         </li>
         <li>
-          <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/register">Register</NavLink>
+          <NavLink style={({isActive}) => (isActive)? {color: "white"}: undefined} to="/purchase">Purchase</NavLink>
         </li>
       </ul>
     </div>

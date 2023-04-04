@@ -7,9 +7,8 @@ import Home from "./Home";
 import Shop from "./Shop";
 import Cart from "./Cart";
 import Register from "./Register";
-import { useEffect, useState } from "react";
-import { API, graphqlOperation } from "aws-amplify";
-import { listItems } from "./graphql/queries";
+import PurchaseList from "./PurchaseList";
+import Detail from "./Detail";
 
 function App() {
 
@@ -28,12 +27,14 @@ function App() {
                 <div className="MainContent">
                   <Routes>
                     <Route index path="/" element={<Home />} />
-                    <Route path="/shop" element={<Shop />} />
-                    <Route path="/cart" element={<Cart />} />
                     <Route
                       path="/register"
                       element={<Register username={user?.username} />}
                     />
+                    <Route path="/shop" element={<Shop />} />
+                    <Route path="/cart" element={<Cart username={user?.username}/>} />
+                    <Route path="/purchase" element={<PurchaseList />} />
+                    <Route path="/detail/:id" element={<Detail />} />
                   </Routes>
                 </div>
               </BrowserRouter>
