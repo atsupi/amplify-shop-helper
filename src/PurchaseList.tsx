@@ -1,5 +1,6 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { listPurchases } from "./graphql/queries";
 import PurchaseItem from "./PurchaseItem";
 import "./PurchaseList.css";
@@ -30,13 +31,11 @@ function PurchaseList() {
         {purchaseLists.map((item) => {
           index = index + 1;
           return (
-            <>
-            <a href={`/detail/${index}`}>
-            <div className={`Item${index}`} key={`${index}`}>
-              <PurchaseItem data={item} />
+            <div className={`Item${index}`}>
+              <Link to={`/detail/${index}`} key={`detail/${index}`}>
+                <PurchaseItem data={item} />
+              </Link>
             </div>
-            </a>
-            </>
           );
         })}
       </div>

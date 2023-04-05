@@ -12,38 +12,37 @@ type Purchase = {
 };
 
 async function getPresignedUrl(key: any) {
-    const presignedUrl = await Storage.get(key, { level: "public" });
-    return presignedUrl;
-  }
-  
-const fetchItem = async (itemID) => {
-    const res = await API.graphql(graphqlOperation(getItem, {id: itemID}));
-    return res;
+  const presignedUrl = await Storage.get(key, { level: "public" });
+  return presignedUrl;
 }
 
+const fetchItem = async (itemID) => {
+  const res = await API.graphql(graphqlOperation(getItem, { id: itemID }));
+  return res;
+};
+
 function PurchaseItem({ data }) {
-    const [firstItem, setFirstItem] = useState({});
-    const [imagefile, setImageFile] = useState("");
-  console.log(data);
+  const [firstItem, setFirstItem] = useState({});
+  const [imagefile, setImageFile] = useState("");
   useEffect(() => {
     const firstItem = data?.itemID[0];
     fetchItem(firstItem).then((res) => {
-        setFirstItem(res.data.getItem);
-        getPresignedUrl(firstItem.imagefile).then((image) => {
-            setImageFile(image);
-        });
+      setFirstItem(res.data.getItem);
+      getPresignedUrl(firstItem.imagefile).then((image) => {
+        setImageFile(image);
+      });
     });
-  },[]);
+  }, []);
 
-  console.log("PurchaseItem", firstItem);
-  console.log("PurchaseItem", imagefile);
   return (
     <>
-      <p>{data.id}</p>
-      {data.itemID.map((id) => {
-        return <p>{id}</p>;
-      })}
-      <img src={imagefile} width="120" height="200" />
+      <div className="PurchaseItem_div">
+        <p>{data.id}</p>
+        {data.itemID.map((id) => {
+          return <p key={id}>{id}</p>;
+        })}
+        <img src={imagefile} width="120" height="200" />
+      </div>
     </>
   );
 }
