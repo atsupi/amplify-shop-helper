@@ -25,6 +25,7 @@ type Purchase = {
 
 function Cart({ username }) {
   const [itemList, setItemList] = useState([]);
+  let index = 0;
 
   const getList = async (nextToken = null) => {
     const res = await API.graphql(
@@ -52,9 +53,9 @@ function Cart({ username }) {
     let IsPurchased: Array<number> = [];
     let itemIDs: Array<String> = [];
     itemList.map((item) => {
-        console.log(item);
-        itemIDs = [...itemIDs, item];
-        IsPurchased = [...IsPurchased, 0];
+      console.log(item);
+      itemIDs = [...itemIDs, item];
+      IsPurchased = [...IsPurchased, 0];
     });
     let value = {
       id: date,
@@ -80,10 +81,11 @@ function Cart({ username }) {
       <h1>Cart Page</h1>
       <div className="itemList">
         {itemList.map((item) => {
+          index = index + 1;
           return (
-            <>
-              <CartItem item={item} key={item.id} />
-            </>
+            <div className="Item" key={`Item${index}`}>
+              <CartItem item={item} />
+            </div>
           );
         })}
       </div>

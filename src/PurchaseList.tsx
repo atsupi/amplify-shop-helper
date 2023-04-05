@@ -31,8 +31,8 @@ function PurchaseList() {
         {purchaseLists.map((item) => {
           index = index + 1;
           return (
-            <div className={`Item${index}`}>
-              <Link to={`/detail/${index}`} key={`detail/${index}`}>
+            <div className={`Item${index}`} key={`detail/${index}`}>
+              <Link to={`/detail/${index}`} key={`linkToDetail/${index}`}>
                 <PurchaseItem data={item} />
               </Link>
             </div>
