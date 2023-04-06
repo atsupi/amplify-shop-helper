@@ -3,20 +3,12 @@ import { useEffect, useState } from "react";
 import { getItem } from "./graphql/queries";
 import "./PurchaseItem.css";
 
-type Purchase = {
-  id: String;
-  itemID: [String];
-  username: String;
-  numberOfItems: number;
-  isPurchased: [number];
-};
-
 async function getPresignedUrl(key: any) {
   const presignedUrl = await Storage.get(key, { level: "public" });
   return presignedUrl;
 }
 
-const fetchItem = async (itemID) => {
+const fetchItem = async (itemID: string) => {
   const res = await API.graphql(graphqlOperation(getItem, { id: itemID }));
   return res;
 };
@@ -28,7 +20,7 @@ function PurchaseItem({ data }) {
     const firstItem = data?.itemID[0];
     fetchItem(firstItem).then((res) => {
       setFirstItem(res.data.getItem);
-      getPresignedUrl(firstItem.imagefile).then((image) => {
+      getPresignedUrl(res.data.getItem.imagefile).then((image) => {
         setImageFile(image);
       });
     });
@@ -38,10 +30,10 @@ function PurchaseItem({ data }) {
     <>
       <div className="PurchaseItem_div">
         <p>{data.id}</p>
-        {data.itemID.map((id) => {
+        {data.itemID.map((id: string) => {
           return <p key={id}>{id}</p>;
         })}
-        <img src={imagefile} width="120" height="200" />
+        <img src={imagefile} width="80" height="120" />
       </div>
     </>
   );

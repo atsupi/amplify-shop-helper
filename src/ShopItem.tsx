@@ -1,25 +1,9 @@
 import "./ShopItem.css";
-import { Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
 import { API, graphqlOperation } from "aws-amplify";
 import { updateItem } from "./graphql/mutations";
-
-/*
-type Item @model {
-    id: ID
-    imagefile: String
-    price: Int!
-    username: String!
-    description: String!
-    isInCart: Int!
-}
-*/
-
-async function getPresignedUrl(key: any) {
-  const presignedUrl = await Storage.get(key, { level: "public" });
-  return presignedUrl;
-}
+import { getPresignedUrl } from "./Utils";
 
 async function updateItemStatus(item) {
     console.log("update item on DynamoDB");

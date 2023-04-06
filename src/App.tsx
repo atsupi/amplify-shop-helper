@@ -11,7 +11,6 @@ import PurchaseList from "./PurchaseList";
 import Detail from "./Detail";
 
 function App() {
-
   return (
     <Authenticator>
       {({ signOut, user }) => (
@@ -32,15 +31,19 @@ function App() {
                       element={<Register username={user?.username} />}
                     />
                     <Route path="/shop" element={<Shop />} />
-                    <Route path="/cart" element={<Cart username={user?.username}/>} />
+                    <Route
+                      path="/cart"
+                      element={<Cart username={user?.username} />}
+                    />
                     <Route path="/purchase" element={<PurchaseList />} />
-                    <Route path="/detail/:id" element={<Detail />} />
+                    <Route path="/detail" element={null}>
+                      <Route path=":id" element={<Detail />} />
+                    </Route>
                   </Routes>
                 </div>
               </BrowserRouter>
             </main>
-            <footer className="App-footer">
-            </footer>
+            <footer className="App-footer"></footer>
           </div>
         </>
       )}
