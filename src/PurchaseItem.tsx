@@ -1,17 +1,6 @@
-import { API, graphqlOperation, Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
-import { getItem } from "./graphql/queries";
 import "./PurchaseItem.css";
-
-async function getPresignedUrl(key: any) {
-  const presignedUrl = await Storage.get(key, { level: "public" });
-  return presignedUrl;
-}
-
-const fetchItem = async (itemID: string) => {
-  const res = await API.graphql(graphqlOperation(getItem, { id: itemID }));
-  return res;
-};
+import { fetchItem, getPresignedUrl } from "./Utils";
 
 function PurchaseItem({ data }) {
   const [firstItem, setFirstItem] = useState({});

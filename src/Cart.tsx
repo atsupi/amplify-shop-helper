@@ -1,40 +1,14 @@
 import "./Cart.css";
 import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { listItems } from "./graphql/queries";
 import { createPurchase } from "./graphql/mutations";
 import { Button } from "@aws-amplify/ui-react";
 import CartItem from "./CartItem";
-
-type Item = {
-  id: String;
-  imagefile: String;
-  price: number;
-  username: String;
-  description: String;
-  isInCart: number;
-};
-
-type Purchase = {
-  id: String;
-  itemID: [String];
-  username: String;
-  numberOfItems: number;
-  isPurchased: [number];
-};
+import { getList } from "./Utils";
 
 function Cart({ username }) {
   const [itemList, setItemList] = useState([]);
   let index = 0;
-
-  const getList = async (nextToken = null) => {
-    const res = await API.graphql(
-      graphqlOperation(listItems, {
-        nextToken: nextToken,
-      })
-    );
-    return res;
-  };
 
   useEffect(() => {
     let newItemList: Array<String> = [];
@@ -82,9 +56,10 @@ function Cart({ username }) {
       <div className="itemList">
         {itemList.map((item) => {
           index = index + 1;
+          console.log(item);
           return (
             <div className="Item" key={`Item${index}`}>
-              <CartItem item={item} />
+              <CartItem itemID={item} />
             </div>
           );
         })}
