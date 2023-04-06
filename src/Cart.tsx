@@ -56,7 +56,6 @@ function Cart({ username }) {
       <div className="itemList">
         {itemList.map((item) => {
           index = index + 1;
-          console.log(item);
           return (
             <div className="Item" key={`Item${index}`}>
               <CartItem itemID={item} />
