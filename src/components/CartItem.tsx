@@ -11,10 +11,11 @@ function CartItem({ itemID }) {
     if (itemID) {
       fetchItem(itemID).then((data) => {
         setCurItem(data.data.getItem);
-      });
-      getPresignedUrl(curItem?.imagefile).then((res) => {
-        setPresignedUrl(res);
-      });
+//        getPresignedUrl(curItem?.imagefile).then((res) => {
+            getPresignedUrl(data.data.getItem?.imagefile).then((res) => {
+                setPresignedUrl(res);
+          });
+          });
     }
   }, []);
 
@@ -22,7 +23,7 @@ function CartItem({ itemID }) {
     <>
       {presignedUrl !== "" && <img src={presignedUrl} width="80" height="120" />}
       <p>{curItem?.description}</p>
-      <p>{curItem?.price}</p>
+      <p>{curItem?.price} JPY</p>
     </>
   );
 }

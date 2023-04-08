@@ -1,14 +1,14 @@
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
 import { Authenticator, Button } from "@aws-amplify/ui-react";
-import HomeBar from "./HomeBar";
+import HomeBar from "./components/HomeBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import Shop from "./Shop";
-import Cart from "./Cart";
-import Register from "./Register";
-import PurchaseList from "./PurchaseList";
-import Detail from "./Detail";
+import Home from "./pages/Home";
+import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
+import Register from "./pages/Register";
+import PurchaseList from "./pages/PurchaseList";
+import Detail from "./pages/Detail";
 
 function App() {
   return (

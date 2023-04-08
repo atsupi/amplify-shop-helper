@@ -1,10 +1,10 @@
 import "./Cart.css";
 import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createPurchase } from "./graphql/mutations";
+import { createPurchase } from "../graphql/mutations";
 import { Button } from "@aws-amplify/ui-react";
-import CartItem from "./CartItem";
-import { getList } from "./Utils";
+import CartItem from "../components/CartItem";
+import { getList } from "../Utils";
 
 function Cart({ username }) {
   const [itemList, setItemList] = useState([]);

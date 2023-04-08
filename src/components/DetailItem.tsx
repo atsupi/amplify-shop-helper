@@ -21,7 +21,6 @@ function DetailItem({ item, onChange }) {
 
   return (
     <>
-      <p>DetailItem</p>
       <div className="DetailItem_wrapper" key={item.id}>
         <div className="checkbox">
           <Checkbox
@@ -33,7 +32,7 @@ function DetailItem({ item, onChange }) {
         </div>
         <img src={presignedUrl} width="80" height="120" />
         <p>{item.description}</p>
-        <p>{item.price}</p>
+        <p>{item.price} JPY</p>
       </div>
     </>
   );

@@ -2,17 +2,12 @@ import "./Register.css";
 import { Storage } from "aws-amplify";
 import { useState } from "react";
 import { Button } from "@aws-amplify/ui-react";
-import { Navigate } from "react-router-dom";
 
 import { API, graphqlOperation } from "aws-amplify";
-import { createItem } from "./graphql/mutations";
+import { createItem } from "../graphql/mutations";
+import { getPresignedUrl } from "../Utils";
 
-async function getPresignedUrl(key: any) {
-  const presignedUrl = await Storage.get(key, { level: "public" });
-  return presignedUrl;
-}
-
-function Register(prop) {
+function Register({username}) {
   const [presignedUrl, setPresignedUrl] = useState("");
   const [dataName, setDataName] = useState("No image");
   const [isUrlSet, setIsUrlSet] = useState(false);
@@ -62,7 +57,7 @@ function Register(prop) {
   const registerItem = async () => {
     console.log("Register item on DynamoDB");
     console.log(description + ` / ` + price + ` / ` + dataName);
-    console.log(" username=" + prop.username);
+    console.log(" username=" + username);
     const date = new Date().toLocaleString();
     console.log(" date=" + date);
     const value = {
@@ -70,7 +65,7 @@ function Register(prop) {
       id: date,
       imagefile: dataName,
       price: parseInt(price),
-      username: prop.username,
+      username: username,
       description: description,
       isInCart: 0,
     };
@@ -101,7 +96,7 @@ function Register(prop) {
         />
       </div>
       <div className="Price">
-        <label>Price:</label>
+        <label>Price (JPY):</label>
         <input
           type="text"
           value={price}

@@ -1,6 +1,6 @@
 import { Link, Outlet, useParams } from "react-router-dom";
 import "./Detail.css";
-import DetailList from "./DetailList";
+import DetailList from "../components/DetailList";
 
 function Detail() {
     const param = useParams();
@@ -11,7 +11,6 @@ function Detail() {
   };
   return (
     <>
-      <p>Detail {id}</p>
       <DetailList pindex={id}/>
       <Link to="/purchase">Back</Link>
     </>

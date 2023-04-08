@@ -1,22 +1,7 @@
 import "./ShopItem.css";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
-import { API, graphqlOperation } from "aws-amplify";
-import { updateItem } from "./graphql/mutations";
-import { getPresignedUrl } from "./Utils";
-
-async function updateItemStatus(item) {
-    console.log("update item on DynamoDB");
-    console.log(item);
-    try {
-      const res = await API.graphql(
-        graphqlOperation(updateItem, { input: item })
-      );
-      console.log(res);
-    } catch (event) {
-      console.log(event);
-    }
-}
+import { getPresignedUrl, updateItemStatus } from "./Utils";
 
 function ShopItem(prop) {
   const [imageName, setImageName] = useState("");
@@ -54,7 +39,7 @@ function ShopItem(prop) {
         )}
       </div>
       <div className="description">{prop.value.description}</div>
-      <div className="price">{prop.value.price}</div>
+      <div className="price">{prop.value.price} JPY</div>
     </>
   );
 }

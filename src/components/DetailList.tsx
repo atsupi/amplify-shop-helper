@@ -1,32 +1,8 @@
-import { Checkbox } from "@mui/material";
-import { API, graphqlOperation } from "aws-amplify";
 import { useEffect, useState } from "react";
 import "./DetailList.css";
-import { getItem, listPurchases } from "./graphql/queries";
 import { ItemWithCheck, Purchase } from "./types";
-import { getPresignedUrl } from "./Utils";
+import { fetchItem, fetchPurchases, mutatePurchase } from "./Utils";
 import DetailItem from "./DetailItem";
-import { updatePurchase } from "./graphql/mutations";
-
-const fetchItem = async (itemID: string) => {
-  const res = await API.graphql(graphqlOperation(getItem, { id: itemID }));
-  return res;
-};
-
-const fetchPurchases = async () => {
-  const res = await API.graphql(graphqlOperation(listPurchases));
-  return res;
-};
-
-const mutationPurchase = async (targetPurchase) => {
-  const res = await API.graphql(
-    graphqlOperation(updatePurchase, {
-      id: targetPurchase.id,
-      input: targetPurchase,
-    })
-  );
-  return res;
-};
 
 function DetailList({ pindex }) {
   const [items, setItems] = useState(Array<ItemWithCheck>);
@@ -56,12 +32,11 @@ function DetailList({ pindex }) {
   const onChangeCheckbox = (event) => {
     const index = parseInt(event.target.ariaLabel);
     targetPurchase.isPurchased[index] = items[index].isPurchased;
-    mutationPurchase(targetPurchase);
+    mutatePurchase(targetPurchase);
   };
 
   return (
     <>
-      <p>DetailList</p>
       <div className="DetailList_wrapper">
         {items.map((item) => {
           return (
