@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import "./CartItem.css";
-import { Item } from "./types";
-import { fetchItem, getPresignedUrl } from "./Utils";
+import { Item } from "../types";
+import { fetchItem, getPresignedUrl } from "../Utils";
+import { Button } from "@aws-amplify/ui-react";
+import { updateItemStatus } from "../Utils";
 
 function CartItem({ itemID }) {
   const [curItem, setCurItem] = useState<Item>();
@@ -11,19 +13,32 @@ function CartItem({ itemID }) {
     if (itemID) {
       fetchItem(itemID).then((data) => {
         setCurItem(data.data.getItem);
-//        getPresignedUrl(curItem?.imagefile).then((res) => {
-            getPresignedUrl(data.data.getItem?.imagefile).then((res) => {
-                setPresignedUrl(res);
-          });
-          });
+        getPresignedUrl(data.data.getItem?.imagefile).then((res) => {
+          setPresignedUrl(res);
+        });
+      });
     }
   }, []);
 
+  const deleteCurrentItem = () => {
+    console.log(curItem);
+    curItem.isInCart = 0;
+    updateItemStatus(curItem);
+    window.location.reload();
+  };
+
   return (
     <>
-      {presignedUrl !== "" && <img src={presignedUrl} width="80" height="120" />}
-      <p>{curItem?.description}</p>
-      <p>{curItem?.price} JPY</p>
+      <div className="CartItem_div">
+        {presignedUrl !== "" && (
+          <img src={presignedUrl} width="60" height="80" />
+        )}
+        <div className="CartItem_description">{curItem?.description}</div>
+        <div className="CartItem_price">{curItem?.price} JPY</div>
+        <div className="DeleteButton">
+          <Button onClick={deleteCurrentItem}>Delete</Button>
+        </div>
+      </div>
     </>
   );
 }

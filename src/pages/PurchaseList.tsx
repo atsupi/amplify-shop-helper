@@ -1,8 +1,8 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { listPurchases } from "./graphql/queries";
-import PurchaseItem from "./PurchaseItem";
+import { listPurchases } from "../graphql/queries";
+import PurchaseItem from "../components/PurchaseItem";
 import "./PurchaseList.css";
 
 function PurchaseList() {

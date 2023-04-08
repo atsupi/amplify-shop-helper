@@ -1,11 +1,11 @@
 
 .ItemsStyle {
     display: grid;
-    grid-template-columns: 140pt 140pt;  
+    grid-template-columns: 150pt 150pt;  
     grid-auto-rows: 220pt;
-    column-gap: 15px;
+    column-gap: 10px;
     row-gap: 18px;
-    margin: 15px;
+    margin: 10px;
     margin-bottom: 40px;
 }
 

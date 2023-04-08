@@ -8,9 +8,9 @@ import { AmplifyProvider } from "@aws-amplify/ui-react";
 Amplify.configure(config);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  <div className="Main_div">
     <AmplifyProvider>
       <App />
     </AmplifyProvider>
-  </React.StrictMode>
+  </div>
 );

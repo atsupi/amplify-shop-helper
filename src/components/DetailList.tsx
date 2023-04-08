@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./DetailList.css";
-import { ItemWithCheck, Purchase } from "./types";
-import { fetchItem, fetchPurchases, mutatePurchase } from "./Utils";
+import { ItemWithCheck, Purchase } from "../types";
+import { fetchItem, fetchPurchases, mutatePurchase } from "../Utils";
 import DetailItem from "./DetailItem";
 
 function DetailList({ pindex }) {

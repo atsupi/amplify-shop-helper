@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./DetailItem.css";
-import { getPresignedUrl } from "./Utils";
+import { getPresignedUrl } from "../Utils";
 import { Checkbox } from "@mui/material";
 
 function DetailItem({ item, onChange }) {
@@ -21,7 +21,7 @@ function DetailItem({ item, onChange }) {
 
   return (
     <>
-      <div className="DetailItem_wrapper" key={item.id}>
+      <div className="DetailItem_div" key={item.id}>
         <div className="checkbox">
           <Checkbox
             checked={isChecked ? true : false}
@@ -30,7 +30,7 @@ function DetailItem({ item, onChange }) {
             inputProps={{ "aria-label": `${item.index}` }}
           />
         </div>
-        <img src={presignedUrl} width="80" height="120" />
+        <img src={presignedUrl} width="60" height="80" />
         <p>{item.description}</p>
         <p>{item.price} JPY</p>
       </div>

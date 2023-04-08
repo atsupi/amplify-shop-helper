@@ -51,17 +51,18 @@ function Cart({ username }) {
 
   return (
     <>
-      <Button onClick={onSubmit}>Submit</Button>
-      <h1>Cart Page</h1>
-      <div className="itemList">
-        {itemList.map((item) => {
-          index = index + 1;
-          return (
-            <div className="Item" key={`Item${index}`}>
-              <CartItem itemID={item} />
-            </div>
-          );
-        })}
+      <div className="Cart_div">
+        <Button onClick={onSubmit}>Submit</Button>
+        <div className="CartItemList">
+          {itemList.map((item) => {
+            index = index + 1;
+            return (
+              <div className="Item" key={`Item${index}`}>
+                <CartItem itemID={item} />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );

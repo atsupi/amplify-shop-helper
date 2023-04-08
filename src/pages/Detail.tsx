@@ -3,17 +3,15 @@ import "./Detail.css";
 import DetailList from "../components/DetailList";
 
 function Detail() {
-    const param = useParams();
-    const id = param.id;
-  const OnBack = () => {
-    console.log("Back pressed");
-    this.props.history.push
-  };
+  const param = useParams();
+  const id = param.id;
   return (
-    <>
-      <DetailList pindex={id}/>
-      <Link to="/purchase">Back</Link>
-    </>
+    <div className="Detail_div">
+      <DetailList pindex={id} />
+      <div className="DetailLink">
+        <Link to="/purchase">Back</Link>
+      </div>
+    </div>
   );
 }
 
