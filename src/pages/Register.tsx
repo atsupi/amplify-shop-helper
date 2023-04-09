@@ -18,9 +18,6 @@ function Register({ username }) {
   const inputFile = (event: any) => {
     console.log(event.target.files[0]);
     if (event.target.files[0].size < 20000000) {
-      console.log("Storage.put");
-      console.log(event.target.files[0].name);
-      console.log(event.target.files[0].type);
       Storage.put(event.target.files[0].name, event.target.files[0], {
         level: "public",
         progressCallback(progress) {
@@ -30,7 +27,6 @@ function Register({ username }) {
       })
         .then((result) => {
           console.log(`Completed the upload of ${result.key}`);
-          console.log(event.target.files[0].name);
           getPresignedUrl(event.target.files[0].name)
             .then((result) => {
               setPresignedUrl(result);
@@ -56,11 +52,7 @@ function Register({ username }) {
   };
 
   const registerItem = async () => {
-    console.log("Register item on DynamoDB");
-    console.log(description + ` / ` + price + ` / ` + dataName);
-    console.log(" username=" + username);
     const date = new Date().toLocaleString();
-    console.log(" date=" + date);
     const value = {
       // `id` is not included as it is determined by AppSync
       id: date,
@@ -74,14 +66,12 @@ function Register({ username }) {
       const res = await API.graphql(
         graphqlOperation(createItem, { input: value })
       );
-      console.log(res);
     } catch (event) {
       console.log(event);
     }
   };
 
   const cancelRegistration = () => {
-    console.log("Registration cancelled.");
     if (isUrlSet) {
       console.log("cancelRegistration", dataName);
       Storage.remove(dataName)

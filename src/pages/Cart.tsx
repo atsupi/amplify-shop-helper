@@ -38,12 +38,10 @@ function Cart({ username }) {
       numberOfItems: itemList.length,
       isPurchased: IsPurchased,
     };
-    console.log(value);
     try {
       const res = await API.graphql(
         graphqlOperation(createPurchase, { input: value })
       );
-      console.log(res);
     } catch (event) {
       console.log(event);
     }
