@@ -6,8 +6,9 @@ import { Button } from "@aws-amplify/ui-react";
 import { API, graphqlOperation } from "aws-amplify";
 import { createItem } from "../graphql/mutations";
 import { getPresignedUrl } from "../Utils";
+import { Link } from "react-router-dom";
 
-function Register({username}) {
+function Register({ username }) {
   const [presignedUrl, setPresignedUrl] = useState("");
   const [dataName, setDataName] = useState("No image");
   const [isUrlSet, setIsUrlSet] = useState(false);
@@ -81,6 +82,12 @@ function Register({username}) {
 
   const cancelRegistration = () => {
     console.log("Registration cancelled.");
+    if (isUrlSet) {
+      console.log("cancelRegistration", dataName);
+      Storage.remove(dataName)
+        .then((res) => console.log(res))
+        .catch((event) => console.log(event));
+    }
   };
 
   return (
@@ -118,8 +125,10 @@ function Register({username}) {
       </div>
       <br />
       <div className="ControlButtons">
-        <Button onClick={registerItem}>Submit</Button>
-        <Button onClick={cancelRegistration}>Cancel</Button>
+        <Button disabled={!(description !== "" && price !== "" && isUrlSet)} onClick={registerItem}>Submit</Button>
+        <Link to="/shop">
+          <Button onClick={cancelRegistration}>Cancel</Button>
+        </Link>
       </div>
     </>
   );
