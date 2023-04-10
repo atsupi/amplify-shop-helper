@@ -39,16 +39,15 @@ function PurchaseItem({ data }) {
       <div className="PurchaseItem_div">
         <div>#{purchaseData.id}</div>
         <p>{purchaseData.numberOfItems} item(s)</p>
-        {
-          completed ?
-          <div style={{'color': 'white', 'background': 'blue', 'margin': '15pt'}}>
+        {completed ? (
+          <div style={{ color: "white", background: "blue", margin: "15pt" }}>
             COMPLETED
-        </div>:
-          <div style={{'color': 'white', 'background': 'orange', 'margin': '15pt'}}>
-          IN PROGRESS
-      </div>
-
-        }
+          </div>
+        ) : (
+          <div style={{ color: "white", background: "orange", margin: "15pt" }}>
+            IN PROGRESS
+          </div>
+        )}
         <img src={imagefile} width="60" height="80" />
         <br />
         <br />
