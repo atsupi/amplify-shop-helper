@@ -1,7 +1,7 @@
 import "./Register.css";
 import { Storage } from "aws-amplify";
 import { useState } from "react";
-import { Button } from "@aws-amplify/ui-react";
+import { Button, Placeholder } from "@aws-amplify/ui-react";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { createItem } from "../graphql/mutations";
@@ -83,11 +83,10 @@ function Register({ username }) {
       <h2>Register Page</h2>
       <div className="Description">
         <label>Description:</label>
-        <input
-          type="text"
+        <textarea
           value={description}
-          placeholder="No description"
           onChange={inputDescription}
+          placeholder="No Description"
         />
       </div>
       <div className="Price">
@@ -113,7 +112,12 @@ function Register({ username }) {
       </div>
       <br />
       <div className="ControlButtons">
-        <Button disabled={!(description !== "" && price !== "" && isUrlSet)} onClick={registerItem}>Submit</Button>
+        <Button
+          disabled={!(description !== "" && price !== "" && isUrlSet)}
+          onClick={registerItem}
+        >
+          Submit
+        </Button>
         <Link to="/shop">
           <Button onClick={cancelRegistration}>Cancel</Button>
         </Link>

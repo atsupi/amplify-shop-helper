@@ -7,11 +7,13 @@
     padding-right: 5px;
 }
 
-.Description input {
+.Description textarea {
     width: 300px;
     height: 160px;
     font-size: 14px;
     text-align: justify;
+    max-height: 300px;
+    overflow-y: scroll;
 }
 
 .Price label {
