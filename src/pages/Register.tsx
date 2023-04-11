@@ -26,7 +26,6 @@ function Register({ username }) {
         },
       })
         .then((result) => {
-          console.log(`Completed the upload of ${result.key}`);
           getPresignedUrl(event.target.files[0].name)
             .then((result) => {
               setPresignedUrl(result);
@@ -73,7 +72,6 @@ function Register({ username }) {
 
   const cancelRegistration = () => {
     if (isUrlSet) {
-      console.log("cancelRegistration", dataName);
       Storage.remove(dataName)
         .then((res) => console.log(res))
         .catch((event) => console.log(event));
