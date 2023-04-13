@@ -4,22 +4,26 @@ import { ItemWithCheck, Purchase } from "../types";
 import { fetchItem, fetchPurchases, mutatePurchase } from "../Utils";
 import DetailItem from "./DetailItem";
 
-function DetailList({ pindex }) {
+type Props = {
+  pindex: number
+}
+
+function DetailList(props: Props) {
   const [items, setItems] = useState(Array<ItemWithCheck>);
   const [targetPurchase, setTargetPurchase] = useState<Purchase>();
 
   useEffect(() => {
     //    let targetPurchase: Purchase;
     let purchases: Array<Purchase> = [];
-    fetchPurchases().then((res) => {
+    fetchPurchases().then((res: {data: { listPurchases: { items: Purchase[]; }}}) => {
       purchases = res.data.listPurchases.items;
-      setTargetPurchase(purchases[pindex - 1]);
+      setTargetPurchase(purchases[props.pindex - 1]);
       let newItems: Array<ItemWithCheck> = [];
       let index = 0;
-      purchases[pindex - 1].itemID.map((item) => {
-        fetchItem(item).then((data) => {
+      purchases[props.pindex - 1].itemID.map((item) => {
+        fetchItem(item).then((data: {data: {getItem: ItemWithCheck}}) => {
           const newItem: ItemWithCheck = data.data.getItem;
-          newItem.isPurchased = purchases[pindex - 1].isPurchased[index];
+          newItem.isPurchased = purchases[props.pindex - 1].isPurchased[index];
           newItem.index = index;
           newItems = [...newItems, newItem];
           setItems(newItems);
@@ -29,10 +33,13 @@ function DetailList({ pindex }) {
     });
   }, []);
 
-  const onChangeCheckbox = (event) => {
-    const index = parseInt(event.target.ariaLabel);
-    targetPurchase.isPurchased[index] = items[index].isPurchased;
-    mutatePurchase(targetPurchase);
+  const onChangeCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const arialabel: string | null = event?.target.ariaLabel;
+    const index = parseInt(arialabel? arialabel: "1");
+    if (targetPurchase) {
+      targetPurchase.isPurchased[index] = items[index].isPurchased;
+      mutatePurchase(targetPurchase);
+    }
   };
 
   return (

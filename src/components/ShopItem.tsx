@@ -2,24 +2,29 @@ import "./ShopItem.css";
 import { useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
 import { getPresignedUrl, updateItemStatus } from "../Utils";
+import { Item } from "../types";
 
-function ShopItem({ value }) {
+type Props = {
+  value: Item
+}
+
+function ShopItem( props: Props ) {
   const [imageName, setImageName] = useState("");
   const [isInCart, setIsInCart] = useState(0);
 
   useEffect(() => {
-    if (value.imagefile) {
-      getPresignedUrl(value.imagefile).then((result) => {
+    if (props.value.imagefile) {
+      getPresignedUrl(props.value.imagefile).then((result) => {
         setImageName(result);
       });
     }
-    setIsInCart(value.isInCart);
+    setIsInCart(props.value.isInCart);
   }, []);
 
   const onClickCheckbox = () => {
-    value.isInCart = 1 - isInCart;
+    props.value.isInCart = 1 - isInCart;
     setIsInCart(1 - isInCart);
-    updateItemStatus(value);
+    updateItemStatus(props.value);
   };
 
   return (
@@ -39,8 +44,8 @@ function ShopItem({ value }) {
             <div className="NoImage">No image</div>
           )}
         </div>
-        <div className="ShopItem_description">{value.description}</div>
-        <div className="ShopItem_price">{value.price} JPY</div>
+        <div className="ShopItem_description">{props.value.description}</div>
+        <div className="ShopItem_price">{props.value.price} JPY</div>
       </div>
     </>
   );

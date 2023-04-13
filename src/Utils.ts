@@ -1,15 +1,18 @@
 import { API, Storage, graphqlOperation } from "aws-amplify";
 import { getItem, listItems, listPurchases } from "./graphql/queries";
 import { updateItem, updatePurchase } from "./graphql/mutations";
-import { Item, Purchase } from "./types";
+import { Item, ItemWithCheck, Purchase } from "./types";
 
 export async function getPresignedUrl(key: any) {
   const presignedUrl = await Storage.get(key, { level: "public" });
   return presignedUrl;
 }
 
-export const getList = async (nextToken = null) => {
-  const res = await API.graphql(
+type getListReturnValue = {
+  data: {listItems: { items: Item[]; }}
+}
+export const getList = async (nextToken = null): Promise<getListReturnValue> => {
+  const res: Promise<getListReturnValue> = <Promise<getListReturnValue>>await API.graphql(
     graphqlOperation(listItems, {
       nextToken: nextToken,
     })
@@ -17,8 +20,12 @@ export const getList = async (nextToken = null) => {
   return res;
 };
 
-export const fetchItem = async (itemID: string) => {
-  const res = await API.graphql(graphqlOperation(getItem, { id: itemID }));
+type fetchItemReturnValue = {
+  data: {getItem: ItemWithCheck}
+}
+
+export const fetchItem = async (itemID: string): Promise<fetchItemReturnValue> => {
+  const res: Promise<fetchItemReturnValue> = <Promise<fetchItemReturnValue>>await API.graphql(graphqlOperation(getItem, { id: itemID }));
   return res;
 };
 
@@ -32,8 +39,11 @@ export async function updateItemStatus(item: Item) {
   }
 }
 
-export const fetchPurchases = async () => {
-  const res = await API.graphql(graphqlOperation(listPurchases));
+type fetchPurchasesReturnValue = {
+  data: { listPurchases: { items: Purchase[] }}
+}
+export const fetchPurchases = async (): Promise<fetchPurchasesReturnValue> => {
+  const res: Promise<fetchPurchasesReturnValue> = <Promise<fetchPurchasesReturnValue>>await API.graphql(graphqlOperation(listPurchases));
   return res;
 };
 

@@ -1,27 +1,17 @@
-import { API, graphqlOperation } from "aws-amplify";
 import { useEffect, useState } from "react";
-import { listItems } from "../graphql/queries";
 import PaginateItems from "../components/PaginateItems";
 import { Button } from "@aws-amplify/ui-react";
-import { Item } from "../API";
+import { Item } from "../types";
 import "./Shop.css";
 import { Link } from "react-router-dom";
+import { getList } from "../Utils";
 
 function Shop() {
   const [itemList, setItemList] = useState(Array<Item>);
   const [numberOfItems, setNumberOfItems] = useState(0);
 
-  const getList = async (nextToken = null) => {
-    const res = await API.graphql(
-      graphqlOperation(listItems, {
-        nextToken: nextToken,
-      })
-    );
-    return res;
-  };
-
   useEffect(() => {
-    getList().then((res) => {
+    getList().then((res: {data: {listItems: { items: Item[]; }}}) => {
       const items: Array<Item> = res.data.listItems.items;
       setItemList(items);
       items.map((item) => {

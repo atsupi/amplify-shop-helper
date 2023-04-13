@@ -1,25 +1,16 @@
-import { API, graphqlOperation } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { listPurchases } from "../graphql/queries";
 import PurchaseItem from "../components/PurchaseItem";
 import "./PurchaseList.css";
+import { fetchPurchases } from "../Utils";
+import { Purchase } from "../types";
 
 function PurchaseList() {
   let index = 0;
-  const [purchaseLists, setPurchaseLists] = useState([]);
-
-  const getList = async (nextToken = null) => {
-    const res = await API.graphql(
-      graphqlOperation(listPurchases, {
-        nextToken: nextToken,
-      })
-    );
-    return res;
-  };
+  const [purchaseLists, setPurchaseLists] = useState(Array<Purchase>);
 
   useEffect(() => {
-    getList().then((res) => {
+    fetchPurchases().then((res: {data: {listPurchases: { items: Purchase[]; }}}) => {
       setPurchaseLists(res.data.listPurchases.items);
     });
   }, []);

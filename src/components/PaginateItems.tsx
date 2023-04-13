@@ -2,19 +2,25 @@ import "./PaginateItems.css";
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopItemList from "./ShopItemList";
+import { Item } from "../types";
 
-function PaginateItems ({ itemsPerPage, items }) {
+type Props = {
+  itemsPerPage: number,
+  items: Item[]
+}
+
+function PaginateItems ( props: Props ) {
   const [itemOffset, setItemOffset] = useState(0);
 
     // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const endOffset = itemOffset + props.itemsPerPage;
+  const currentItems = props.items.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(props.items.length / props.itemsPerPage);
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+  const handlePageClick = (event: { selected: number }) => {
+    const newOffset = (event.selected * props.itemsPerPage) % props.items.length;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );

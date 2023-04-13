@@ -5,13 +5,17 @@ import { fetchItem, getPresignedUrl } from "../Utils";
 import { Button } from "@aws-amplify/ui-react";
 import { updateItemStatus } from "../Utils";
 
-function CartItem({ itemID }) {
+type Props = {
+  itemID: string
+}
+
+function CartItem( props: Props ) {
   const [curItem, setCurItem] = useState<Item>();
   const [presignedUrl, setPresignedUrl] = useState("");
 
   useEffect(() => {
-    if (itemID) {
-      fetchItem(itemID).then((data) => {
+    if (props.itemID) {
+      fetchItem(props.itemID).then((data) => {
         setCurItem(data.data.getItem);
         getPresignedUrl(data.data.getItem?.imagefile).then((res) => {
           setPresignedUrl(res);
@@ -22,8 +26,10 @@ function CartItem({ itemID }) {
 
   const deleteCurrentItem = () => {
     console.log(curItem);
-    curItem.isInCart = 0;
-    updateItemStatus(curItem);
+    if (curItem) {
+      curItem.isInCart = 0;
+      updateItemStatus(curItem);
+    }
     window.location.reload();
   };
 

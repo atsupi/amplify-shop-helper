@@ -5,15 +5,20 @@ import { createPurchase } from "../graphql/mutations";
 import { Button } from "@aws-amplify/ui-react";
 import CartItem from "../components/CartItem";
 import { getList } from "../Utils";
+import { Item } from "../types";
 
-function Cart({ username }) {
-  const [itemList, setItemList] = useState([]);
+type Props = {
+  username: string | undefined
+}
+
+function Cart( props: Props ) {
+  const [itemList, setItemList] = useState(Array<string>);
   let index = 0;
 
   useEffect(() => {
-    let newItemList: Array<String> = [];
-    getList().then((res) => {
-      res.data.listItems.items.map((item) => {
+    let newItemList: Array<string> = [];
+    getList().then((res: {data: {listItems: { items: Item[]; }}}) => {
+      res.data.listItems.items.map((item: Item) => {
         if (item.isInCart) {
           newItemList = [...newItemList, item.id];
         }
@@ -34,7 +39,7 @@ function Cart({ username }) {
     let value = {
       id: date,
       itemID: itemIDs,
-      username: username,
+      username: props.username,
       numberOfItems: itemList.length,
       isPurchased: IsPurchased,
     };

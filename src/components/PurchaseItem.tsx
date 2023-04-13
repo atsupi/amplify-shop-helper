@@ -3,18 +3,21 @@ import "./PurchaseItem.css";
 import { fetchItem, getPresignedUrl } from "../Utils";
 import { Purchase } from "../types";
 
-function PurchaseItem({ data }) {
-  const [firstItem, setFirstItem] = useState({});
+type Props = {
+  data: Purchase
+}
+
+function PurchaseItem( props: Props ) {
   const [imagefile, setImageFile] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [completed, setCompleted] = useState(0);
-  const purchaseData: Purchase = data;
+  const purchaseData: Purchase = props.data;
+  const [firstItem, setFirstItem] = useState(purchaseData?.itemID[0]);
 
   useEffect(() => {
-    const firstItem = purchaseData?.itemID[0];
     let temp_completed = 1;
     fetchItem(firstItem).then((res) => {
-      setFirstItem(res.data.getItem);
+      setFirstItem(res.data.getItem.id);
       getPresignedUrl(res.data.getItem.imagefile).then((image) => {
         setImageFile(image);
       });
@@ -22,7 +25,7 @@ function PurchaseItem({ data }) {
     purchaseData.itemID.map((itemID) => {
       fetchItem(itemID).then((res) => {
         setTotalPrice(
-          (totalPrice) => totalPrice + parseInt(res.data.getItem.price)
+          (totalPrice) => totalPrice + res.data.getItem.price
         );
       });
     });

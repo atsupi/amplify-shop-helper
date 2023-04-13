@@ -1,14 +1,18 @@
 import "./Register.css";
 import { Storage } from "aws-amplify";
 import { useState } from "react";
-import { Button, Placeholder } from "@aws-amplify/ui-react";
+import { Button } from "@aws-amplify/ui-react";
 
 import { API, graphqlOperation } from "aws-amplify";
 import { createItem } from "../graphql/mutations";
 import { getPresignedUrl } from "../Utils";
 import { Link } from "react-router-dom";
 
-function Register({ username }) {
+type Props = {
+  username: string | undefined
+}
+
+function Register( props: Props ) {
   const [presignedUrl, setPresignedUrl] = useState("");
   const [dataName, setDataName] = useState("No image");
   const [isUrlSet, setIsUrlSet] = useState(false);
@@ -57,7 +61,7 @@ function Register({ username }) {
       id: date,
       imagefile: dataName,
       price: parseInt(price),
-      username: username,
+      username: props.username,
       description: description,
       isInCart: 0,
     };
