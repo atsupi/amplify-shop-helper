@@ -20,6 +20,12 @@
       },
       "api": {
         "amplifyshophelper": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d38nf35ay1uebd",
+          "type": "manual"
+        }
       }
     }
   }
