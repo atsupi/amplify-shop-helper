@@ -28,5 +28,13 @@
         }
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {},
+    "categories": {
+      "auth": {
+        "amplifyshophelper2adb014c": {}
+      }
+    }
   }
 }
