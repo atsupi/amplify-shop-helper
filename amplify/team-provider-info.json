@@ -50,6 +50,12 @@
           "appId": "d38nf35ay1uebd",
           "type": "manual"
         }
+      },
+      "api": {
+        "amplifyshophelper": {}
+      },
+      "storage": {
+        "shophelper": {}
       }
     }
   }
