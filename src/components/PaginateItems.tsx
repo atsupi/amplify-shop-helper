@@ -1,5 +1,5 @@
 import "./PaginateItems.css";
-import React, { useState } from "react";
+import React, { RefCallback, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopItemList from "./ShopItemList";
 import { Item } from "../types";
@@ -7,6 +7,7 @@ import { Item } from "../types";
 type Props = {
   itemsPerPage: number,
   items: Item[]
+  onChange: RefCallback<React.ChangeEvent<HTMLInputElement>>;
 }
 
 function PaginateItems ( props: Props ) {
@@ -27,11 +28,15 @@ function PaginateItems ( props: Props ) {
     setItemOffset(newOffset);
   };
 
+  const onChangeChild = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onChange(event);
+  };
+
   return (
     <>
       <div className="PaginateWrapper">
         <div className="ItemsStyle">
-          <ShopItemList currentItems={currentItems} />
+          <ShopItemList currentItems={currentItems} onChange={onChangeChild}/>
         </div>
         <ReactPaginate
           nextLabel="next >"
