@@ -1,18 +1,19 @@
 import "./PaginateItems.css";
-import React, { useState } from "react";
+import React, { RefCallback, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopItemList from "./ShopItemList";
 import { Item } from "../types";
 
 type Props = {
-  itemsPerPage: number,
-  items: Item[]
-}
+  itemsPerPage: number;
+  items: Item[];
+  onChange: RefCallback<React.ChangeEvent<HTMLInputElement>>;
+};
 
-function PaginateItems ( props: Props ) {
+function PaginateItems(props: Props) {
   const [itemOffset, setItemOffset] = useState(0);
 
-    // Simulate fetching items from another resources.
+  // Simulate fetching items from another resources.
   // (This could be items from props; or items loaded in a local state
   // from an API endpoint with useEffect and useState)
   const endOffset = itemOffset + props.itemsPerPage;
@@ -20,18 +21,23 @@ function PaginateItems ( props: Props ) {
   const pageCount = Math.ceil(props.items.length / props.itemsPerPage);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * props.itemsPerPage) % props.items.length;
+    const newOffset =
+      (event.selected * props.itemsPerPage) % props.items.length;
     console.log(
       `User requested page number ${event.selected}, which is offset ${newOffset}`
     );
     setItemOffset(newOffset);
   };
 
+  const onChangeChild = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onChange(event);
+  };
+
   return (
     <>
       <div className="PaginateWrapper">
         <div className="ItemsStyle">
-          <ShopItemList currentItems={currentItems} />
+          <ShopItemList currentItems={currentItems} onChange={onChangeChild}/>
         </div>
         <ReactPaginate
           nextLabel="next >"

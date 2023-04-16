@@ -1,11 +1,12 @@
 import "./ShopItem.css";
-import { useEffect, useState } from "react";
+import { RefCallback, useEffect, useState } from "react";
 import { Checkbox } from "@mui/material";
 import { getPresignedUrl, updateItemStatus } from "../Utils";
 import { Item } from "../types";
 
 type Props = {
-  value: Item
+  value: Item;
+    onChange: RefCallback<React.ChangeEvent<HTMLInputElement>>;
 }
 
 function ShopItem( props: Props ) {
@@ -21,10 +22,11 @@ function ShopItem( props: Props ) {
     setIsInCart(props.value.isInCart);
   }, []);
 
-  const onClickCheckbox = () => {
+  const onClickCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.value.isInCart = 1 - isInCart;
     setIsInCart(1 - isInCart);
     updateItemStatus(props.value);
+    props.onChange(event);
   };
 
   return (

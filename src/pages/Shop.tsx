@@ -26,6 +26,14 @@ function Shop() {
     console.log("OpenCart clicked");
   };
 
+  const onChangeChild = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event?.target.checked) {
+          setNumberOfItems((number) => number + 1);
+        } else {
+          setNumberOfItems((number) => number - 1);
+        }
+      };
+
   return (
     <>
       <div className="Shop_Wrapper">
@@ -35,7 +43,7 @@ function Shop() {
           </Link>{" "}
         </div>
         <div className="ShopItemList">
-          <PaginateItems itemsPerPage={4} items={itemList} />
+          <PaginateItems itemsPerPage={4} items={itemList} onChange={onChangeChild}/>
         </div>
       </div>
     </>
