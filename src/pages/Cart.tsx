@@ -55,7 +55,7 @@ function Cart( props: Props ) {
   return (
     <>
       <div className="Cart_div">
-        <Button onClick={onSubmit}>Submit</Button>
+        <Button onClick={onSubmit} disabled={itemList.length < 1}>Submit</Button>
         <div className="CartItemList">
           {itemList.map((item) => {
             index = index + 1;
