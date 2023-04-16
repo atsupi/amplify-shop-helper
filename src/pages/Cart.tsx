@@ -8,16 +8,16 @@ import { getList } from "../Utils";
 import { Item } from "../types";
 
 type Props = {
-  username: string | undefined
-}
+  username: string | undefined;
+};
 
-function Cart( props: Props ) {
+function Cart(props: Props) {
   const [itemList, setItemList] = useState(Array<string>);
   let index = 0;
 
   useEffect(() => {
     let newItemList: Array<string> = [];
-    getList().then((res: {data: {listItems: { items: Item[]; }}}) => {
+    getList().then((res: { data: { listItems: { items: Item[] } } }) => {
       res.data.listItems.items.map((item: Item) => {
         if (item.isInCart) {
           newItemList = [...newItemList, item.id];
@@ -55,7 +55,9 @@ function Cart( props: Props ) {
   return (
     <>
       <div className="Cart_div">
-        <Button onClick={onSubmit}>Submit</Button>
+        <Button onClick={onSubmit} disabled={itemList.length < 1}>
+          Submit
+        </Button>
         <div className="CartItemList">
           {itemList.map((item) => {
             index = index + 1;
