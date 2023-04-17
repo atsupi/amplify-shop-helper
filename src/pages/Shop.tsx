@@ -11,7 +11,7 @@ function Shop() {
   const [numberOfItems, setNumberOfItems] = useState(0);
 
   useEffect(() => {
-    getList().then((res: {data: {listItems: { items: Item[]; }}}) => {
+    getList().then((res: { data: { listItems: { items: Item[] } } }) => {
       const items: Array<Item> = res.data.listItems.items;
       setItemList(items);
       items.map((item) => {
@@ -27,12 +27,12 @@ function Shop() {
   };
 
   const onChangeChild = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event?.target.checked) {
-          setNumberOfItems((number) => number + 1);
-        } else {
-          setNumberOfItems((number) => number - 1);
-        }
-      };
+    if (event?.target.checked) {
+      setNumberOfItems((number) => number + 1);
+    } else {
+      setNumberOfItems((number) => number - 1);
+    }
+  };
 
   return (
     <>
@@ -40,10 +40,14 @@ function Shop() {
         <div className="CartButton">
           <Link to="/cart">
             <Button onClick={OpenCart}>To Cart ({numberOfItems})</Button>
-          </Link>{" "}
+          </Link>
         </div>
         <div className="ShopItemList">
-          <PaginateItems itemsPerPage={4} items={itemList} onChange={onChangeChild}/>
+          <PaginateItems
+            itemsPerPage={4}
+            items={itemList}
+            onChange={onChangeChild}
+          />
         </div>
       </div>
     </>
