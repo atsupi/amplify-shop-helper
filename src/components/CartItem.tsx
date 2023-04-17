@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { RefCallback, useEffect, useState } from "react";
 import "./CartItem.css";
 import { Item } from "../types";
 import { fetchItem, getPresignedUrl } from "../Utils";
@@ -6,7 +6,8 @@ import { Button } from "@aws-amplify/ui-react";
 import { updateItemStatus } from "../Utils";
 
 type Props = {
-  itemID: string
+  itemID: string;
+  onDelete: RefCallback<string>;
 }
 
 function CartItem( props: Props ) {
@@ -30,7 +31,7 @@ function CartItem( props: Props ) {
       curItem.isInCart = 0;
       updateItemStatus(curItem);
     }
-    window.location.reload();
+    props.onDelete(curItem?.id || "");
   };
 
   return (
