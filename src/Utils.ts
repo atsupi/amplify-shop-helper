@@ -50,7 +50,6 @@ export const fetchPurchases = async (): Promise<fetchPurchasesReturnValue> => {
 export const mutatePurchase = async (targetPurchase: Purchase) => {
   const res = await API.graphql(
     graphqlOperation(updatePurchase, {
-      id: targetPurchase.id,
       input: targetPurchase,
     })
   );

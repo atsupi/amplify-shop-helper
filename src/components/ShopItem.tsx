@@ -25,7 +25,15 @@ function ShopItem( props: Props ) {
   const onClickCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     props.value.isInCart = 1 - isInCart;
     setIsInCart(1 - isInCart);
-    updateItemStatus(props.value);
+    const newValue = {
+      id: props.value.id,
+      imagefile: props.value.imagefile,
+      price: props.value.price,
+      description: props.value.description,
+      username: props.value.username,
+      isInCart: props.value.isInCart
+    }
+    updateItemStatus(newValue);
     props.onChange(event);
   };
 

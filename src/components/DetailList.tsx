@@ -38,7 +38,15 @@ function DetailList(props: Props) {
     const index = parseInt(arialabel? arialabel: "1");
     if (targetPurchase) {
       targetPurchase.isPurchased[index] = items[index].isPurchased;
-      mutatePurchase(targetPurchase);
+      console.log("DetailList:onChangeCheckbox", targetPurchase);
+      const newValue = {
+        id: targetPurchase.id,
+        isPurchased: targetPurchase.isPurchased,
+        username: targetPurchase.username,
+        numberOfItems: targetPurchase.numberOfItems,
+        itemID: targetPurchase.itemID
+      }
+      mutatePurchase(newValue);
     }
   };
 
